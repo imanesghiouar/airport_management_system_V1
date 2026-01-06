@@ -1,0 +1,271 @@
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Industrial Dark Mode Palette */
+    --background: 240 10% 3.9%;
+    --foreground: 210 20% 98%;
+
+    --card: 222 47% 5%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 222 47% 5%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 187 94% 43%;
+    --primary-foreground: 240 10% 3.9%;
+
+    --secondary: 217 33% 10%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 217 33% 12%;
+    --muted-foreground: 215 20% 55%;
+
+    --accent: 187 94% 43%;
+    --accent-foreground: 240 10% 3.9%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 217 33% 15%;
+    --input: 217 33% 15%;
+    --ring: 187 94% 43%;
+
+    --radius: 2px;
+
+    /* Custom Industrial Tokens */
+    --surface-elevated: 222 47% 7%;
+    --surface-overlay: 222 47% 9%;
+    --border-subtle: 217 33% 12%;
+    --border-strong: 217 33% 18%;
+    
+    --status-online: 142 76% 45%;
+    --status-offline: 0 62% 50%;
+    --status-warning: 38 92% 50%;
+    
+    --telemetry-cyan: 187 94% 43%;
+    --telemetry-green: 142 76% 45%;
+    --telemetry-amber: 38 92% 50%;
+    --telemetry-red: 0 62% 50%;
+
+    --sidebar-background: 222 47% 5%;
+    --sidebar-foreground: 215 20% 65%;
+    --sidebar-primary: 187 94% 43%;
+    --sidebar-primary-foreground: 240 10% 3.9%;
+    --sidebar-accent: 217 33% 12%;
+    --sidebar-accent-foreground: 210 20% 98%;
+    --sidebar-border: 217 33% 15%;
+    --sidebar-ring: 187 94% 43%;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 210 20% 98%;
+    --card: 222 47% 5%;
+    --card-foreground: 210 20% 98%;
+    --popover: 222 47% 5%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 187 94% 43%;
+    --primary-foreground: 240 10% 3.9%;
+    --secondary: 217 33% 10%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 217 33% 12%;
+    --muted-foreground: 215 20% 55%;
+    --accent: 187 94% 43%;
+    --accent-foreground: 240 10% 3.9%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 217 33% 15%;
+    --input: 217 33% 15%;
+    --ring: 187 94% 43%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Monospace font utility */
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  /* Industrial Panel Styling */
+  .panel {
+    @apply bg-card border border-border;
+  }
+
+  .panel-elevated {
+    background: hsl(var(--surface-elevated));
+    @apply border border-border;
+  }
+
+  /* Telemetry Display */
+  .telemetry-label {
+    @apply font-mono text-xs uppercase tracking-wider text-muted-foreground;
+  }
+
+  .telemetry-value {
+    @apply font-mono text-sm text-foreground;
+  }
+
+  .telemetry-highlight {
+    @apply font-mono text-sm;
+    color: hsl(var(--telemetry-cyan));
+  }
+
+  /* Status LED Indicators */
+  .status-led {
+    @apply w-2 h-2 rounded-full;
+  }
+
+  .status-led-online {
+    background: hsl(var(--status-online));
+    box-shadow: 0 0 8px hsl(var(--status-online) / 0.6);
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .status-led-offline {
+    background: hsl(var(--status-offline));
+  }
+
+  .status-led-warning {
+    background: hsl(var(--status-warning));
+    animation: pulse-glow 1s ease-in-out infinite;
+  }
+
+  /* Terminal Styling */
+  .terminal-window {
+    @apply bg-background border border-border font-mono text-xs;
+    color: hsl(var(--telemetry-green));
+  }
+
+  .terminal-line {
+    @apply py-0.5 px-3;
+  }
+
+  .terminal-prompt {
+    color: hsl(var(--telemetry-cyan));
+  }
+
+  /* Grid Overlay for Detection Canvas */
+  .detection-canvas {
+    background-image: 
+      linear-gradient(hsl(var(--border-subtle)) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border-subtle)) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Bounding Box Styling */
+  .detection-box {
+    border: 1px solid hsl(var(--telemetry-cyan));
+    background: hsl(var(--telemetry-cyan) / 0.05);
+  }
+
+  /* Navigation Active State */
+  .nav-active {
+    background: hsl(var(--secondary));
+    border-left: 2px solid hsl(var(--primary));
+  }
+
+  /* Upload Zone */
+  .upload-zone {
+    @apply border border-dashed border-border bg-background/50;
+    transition: all 0.15s ease;
+  }
+
+  .upload-zone:hover,
+  .upload-zone-active {
+    border-color: hsl(var(--primary));
+    background: hsl(var(--primary) / 0.05);
+  }
+
+  /* Data Table */
+  .data-row {
+    @apply border-b border-border py-2;
+  }
+
+  .data-row:hover {
+    background: hsl(var(--muted) / 0.5);
+  }
+
+  /* Button Variants */
+  .btn-industrial {
+    @apply px-4 py-2 font-mono text-xs uppercase tracking-wider;
+    @apply bg-secondary text-foreground border border-border;
+    @apply hover:bg-muted transition-colors;
+  }
+
+  .btn-primary-industrial {
+    @apply px-4 py-2 font-mono text-xs uppercase tracking-wider;
+    @apply bg-primary text-primary-foreground border border-primary;
+    @apply hover:bg-primary/90 transition-colors;
+  }
+
+  /* Section Header */
+  .section-header {
+    @apply font-mono text-xs uppercase tracking-widest text-muted-foreground mb-4;
+  }
+
+  /* Metric Card */
+  .metric-card {
+    @apply p-4 bg-card border border-border;
+  }
+
+  .metric-value {
+    @apply font-mono text-2xl text-foreground;
+  }
+
+  .metric-label {
+    @apply font-mono text-xs uppercase tracking-wider text-muted-foreground mt-1;
+  }
+}
+
+@layer utilities {
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes scan-line {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(100vh);
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .animate-scan {
+    animation: scan-line 3s linear infinite;
+  }
+}
