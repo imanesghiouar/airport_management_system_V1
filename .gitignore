@@ -83,6 +83,14 @@ temp/
 *.swo
 *~
 
+# ===== Data files =====
+src/backend/train.csv
+
+# ===== frintend ======
+src/frontend/public/
+src/frontend/bun.lockb
+
+
 # ===== OS Specific =====
 .AppleDouble
 .LSOverride
